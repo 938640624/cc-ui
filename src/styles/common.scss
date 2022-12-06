@@ -1,0 +1,44 @@
+html, body, ul, ol, p, h1, h2, h3, h4 {
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: PingFang SC, PingFangSC-Regular;
+}
+li, ul, ol {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.clear {
+  *zoom: 1;
+}
+
+.clear:before,
+.clear:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.clear:after {
+  clear: both;
+}
+
+@font-face {
+  font-family: "Oswald-Bold";
+  src: url("~@/assets/fonts/Oswald-Bold.otf"); /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  font-weight: normal;
+  font-display: "auto";
+  font-style: normal;
+}
+
+a.mapboxgl-ctrl-logo {
+  display: none;
+}

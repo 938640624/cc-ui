@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="14px" viewBox="0 0 12 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic_green_up</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="效果评估-图表" transform="translate(-1446.000000, -221.000000)">
+            <g id="编组-14" transform="translate(1214.000000, 197.000000)">
+                <g id="编组-10" transform="translate(164.000000, 0.000000)">
+                    <g id="ic_green_up" transform="translate(68.000000, 24.000000)">
+                        <polyline id="形状备份" fill="#26E550" transform="translate(6.040404, 6.040404) scale(1, -1) rotate(45.000000) translate(-6.040404, -6.040404) " points="9.71717172 2.36363636 9.71717172 9.71717172 2.36363636 9.71717172"></polyline>
+                        <line x1="6.04040404" y1="2.60941114" x2="6.04040404" y2="13.0801734" id="路径-8" stroke="#26E550" stroke-width="2" stroke-linejoin="round"></line>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

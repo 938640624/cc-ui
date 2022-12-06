@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>pic_car_circle</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="推演管控-方案取消" transform="translate(-840.000000, -487.000000)" fill-rule="nonzero">
+            <g id="普通路线" transform="translate(99.000000, -14.000000)">
+                <g id="pic_car_circle" transform="translate(743.000000, 503.000000)">
+                    <path d="M6,-1.5 C1.85786438,-1.5 -1.5,1.85786438 -1.5,6 C-1.5,10.1421356 1.85786438,13.5 6,13.5 C10.1421356,13.5 13.5,10.1421356 13.5,6 C13.5,1.85786438 10.1421356,-1.5 6,-1.5 Z" id="路径" fill="#FFFFFF"></path>
+                    <path d="M6,1.5 C8.48528137,1.5 10.5,3.51471863 10.5,6 C10.5,8.48528137 8.48528137,10.5 6,10.5 C3.51471863,10.5 1.5,8.48528137 1.5,6 C1.5,3.51471863 3.51471863,1.5 6,1.5 Z" id="路径" fill="#9BA8A5"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

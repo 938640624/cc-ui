@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="34px" viewBox="0 0 15 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic_signal_lamp</title>
+    <g id="1.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="管控推演-方案发布-街道级别" transform="translate(-744.000000, -392.000000)">
+            <g id="ic_signal_lamp" transform="translate(744.000000, 392.000000)">
+                <rect id="矩形" stroke="#D0D0D0" fill-opacity="0.9" fill="#0D161D" x="0.5" y="0.8714284" width="14" height="32" rx="3"></rect>
+                <circle id="椭圆形" fill="#FF5A0D" cx="7.5" cy="7.8714284" r="3.5"></circle>
+                <circle id="椭圆形备份-2" fill-opacity="0.9" fill="#FFD027" cx="7.5" cy="16.8714284" r="3.5"></circle>
+                <circle id="椭圆形备份-3" fill-opacity="0.9" fill="#6BFF9A" cx="7.5" cy="25.8714284" r="3.5"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

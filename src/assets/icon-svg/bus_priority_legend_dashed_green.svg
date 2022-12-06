@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic_radiation_low</title>
+    <g id="1.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.5" stroke-dasharray="4" stroke-linecap="round">
+        <g id="实时监测-统计分析" transform="translate(-1456.000000, -1036.000000)" fill="#2C9D46" stroke="#2C9D46" stroke-width="2">
+            <g id="编组-25" transform="translate(1147.000000, 1020.000000)">
+                <g id="编组-33" transform="translate(222.000000, 14.000000)">
+                    <g id="编组-23备份-3" transform="translate(88.000000, 0.000000)">
+                        <path d="M0,3 L12,3 L12,15 L0,15 L0,3 Z" id="ic_radiation_low"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

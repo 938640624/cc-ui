@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="42px" height="19px" viewBox="0 0 42 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic_signal_lamp_legend</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="推演管控-车速引导" transform="translate(-713.000000, -628.000000)">
+            <g id="图标" transform="translate(487.000000, 224.000000)">
+                <g id="编组-28备份-3" transform="translate(246.500000, 414.000000) rotate(90.000000) translate(-246.500000, -414.000000) translate(238.000000, 394.000000)">
+                    <rect id="矩形" stroke="#D0D0D0" fill-opacity="0.9" fill="#0D161D" x="-0.5" y="-0.0357145" width="17.25" height="39.75" rx="3"></rect>
+                    <circle id="椭圆形" fill="#FF5A0D" cx="8.125" cy="8.5892855" r="4.375"></circle>
+                    <circle id="椭圆形备份-2" fill-opacity="0.9" fill="#FFD027" cx="8.125" cy="19.8392855" r="4.375"></circle>
+                    <circle id="椭圆形备份-3" fill-opacity="0.9" fill="#6BFF9A" cx="8.125" cy="31.0892855" r="4.375"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

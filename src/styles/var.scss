@@ -1,0 +1,47 @@
+$color-primary: #071429; // 主色
+$color-secondary: #304a71; // 辅助色
+$color-header: #DEE1E6; // 头部主色
+
+$text-color-primary: #bceeff; // 字符主色
+$text-color-secondary: #ffffff; // 字符辅助色
+
+$border-color-base: #6190bf; // 边框色
+$border-color-secondary: #a8dcff; // 用于各类模块框的描边
+$border-color-third: #5178A1;
+
+$font-size-extra-large: 34px !default;
+$font-size-large: 28px !default;
+$font-size-medium: 20px !default;
+$font-size-base: 14px !default;
+$font-size-small: 12px !default;
+
+// 用于主要模块的渐变框、模块中标题背景样式
+
+$bg-color-gradient-page: linear-gradient(
+  270deg,
+  $color-primary 0%,
+  #23324a 50%,
+  $color-primary 100%
+);
+
+$bg-btn-primary: #B9EDFF;
+$bg-btn-secondary: #071429;
+
+
+// $bg-btn-primary-bg: #B9EDFF;
+// $bg-btn-primary-color: #304A71;
+// $bg-btn-primary-border-color: #B9EDFF;
+
+// $bg-btn-default-bg: #051F3E;
+// $bg-btn-default-color: $border-color-base;
+// $bg-btn-default-border-color: $border-color-base;
+
+// $bg-btn-default-hover-bg: #071429;
+// $bg-btn-default-hover-color: $text-color-secondary;
+// $bg-btn-default-hover-border-color: $border-color-base;
+
+
+
+// 用于强调性文字信息
+$text-color-gradient-from: #ff8157;
+$text-color-gradient-to: #f7e101;

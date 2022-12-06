@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>交通事件发布</title>
+    <g id="V1.0.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="交通路网-交通事件" transform="translate(-1846.000000, -74.000000)">
+            <g id="tab3" transform="translate(1640.000000, 66.000000)">
+                <g id="position_nor" transform="translate(206.000000, 8.000000)">
+                    <path d="M9,1 C5.686025,1 3,3.69364632 3,7.01696838 C3,11.5878838 7.133975,15.6393342 8.54005,16.8246018 C8.80995,17.0512409 9.2,17.0592635 9.478025,16.8427279 C10.896,15.7315944 15,11.918792 15,7.01696838 C15,3.69364632 12.313975,1 9,1 Z" id="dingwei" fill="#6190BF"></path>
+                    <rect id="矩形" fill="#0F1E37" x="8" y="4" width="2" height="7" rx="0.5"></rect>
+                    <rect id="矩形" fill="#0F1E37" transform="translate(9.000000, 7.500000) rotate(90.000000) translate(-9.000000, -7.500000) " x="8" y="4" width="2" height="7" rx="0.5"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

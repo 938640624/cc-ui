@@ -1,0 +1,73 @@
+.el-button{
+  color: #8CAFD0;
+  background: #071429;
+  border: 1px solid #6190BF;
+  &:hover,
+  &:focus,
+  &:active{
+    background: rgba(185,237,255,0.90);
+    color: #304A71;
+  }
+}
+.el-button--primary{
+  color: #32C5FF;
+  &:hover,
+  &:focus,
+  &:active{
+    color:#32C5FF;
+    background: rgba(50,197,255,0.2);
+    border: 1px solid #32C5FF;
+  }
+}
+.el-button--success{
+  color: #0AC79D;
+  &:hover,
+  &:focus,
+  &:active{
+    color:#0AC79D;
+    background: rgba(10,199,157,0.2);
+    border: 1px solid #0AC79D;
+  }
+}
+.el-button--warning{
+  color:#FF610D;
+  &:hover,
+  &:focus,
+  &:active{
+    color:#FF610D;
+    background: rgba(255,97,13,0.2);
+    border: 1px solid #FF610D;
+  }
+}
+.el-button--danger{
+  color:#F56C6C;
+  &:hover,
+  &:focus,
+  &:active{
+    color:#F56C6C;
+    background: rgba(245,108,108,0.2);
+    border: 1px solid #F56C6C;
+  }
+}
+.el-button--text{
+  border-color: transparent;
+  color: #65E6FF;
+  background: transparent;
+  padding-left: 0;
+  padding-right: 0;
+  text-decoration: underline;
+  &:hover,
+  &:focus,
+  &:active{
+    color: #65E6FF;
+    border-color: transparent;
+    background-color: transparent;
+  }
+}
+.el-button.is-disabled{
+  &,
+  &:hover,
+  &:focus{
+    opacity: 0.5;
+  }
+}

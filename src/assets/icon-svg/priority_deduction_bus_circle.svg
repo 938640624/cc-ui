@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>pic_bus_circle</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="推演管控-方案取消" transform="translate(-966.000000, -530.000000)" fill-rule="nonzero">
+            <g id="普通路线" transform="translate(99.000000, -14.000000)">
+                <g id="pic_bus_circle" transform="translate(867.500000, 544.500000)">
+                    <path d="M7.5,0 C3.35786438,0 0,3.35786438 0,7.5 C0,11.6421356 3.35786438,15 7.5,15 C11.6421356,15 15,11.6421356 15,7.5 C15,3.35786438 11.6421356,0 7.5,0 Z" id="路径" fill="#FFFFFF"></path>
+                    <path d="M7.5,3 C9.98528137,3 12,5.01471863 12,7.5 C12,9.98528137 9.98528137,12 7.5,12 C5.01471863,12 3,9.98528137 3,7.5 C3,5.01471863 5.01471863,3 7.5,3 Z" id="路径" fill="#01CC92"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

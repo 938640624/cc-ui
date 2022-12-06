@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <rect id="path-1" x="0" y="0" width="14" height="14"></rect>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="效果评估" transform="translate(-146.000000, -1031.000000)">
+            <g id="编组-21" transform="translate(86.000000, 1028.000000)">
+                <g id="ic_arrow_open" transform="translate(67.000000, 10.000000) rotate(0.000000) translate(-67.000000, -10.000000) translate(60.000000, 3.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="矩形" fill="#D8D8D8" opacity="0" xlink:href="#path-1"></use>
+                    <g id="编组-12" mask="url(#mask-2)" stroke="#65E6FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                        <g transform="translate(3.333333, -1.111111)">
+                            <polyline id="形状" transform="translate(3.733333, 3.733333) rotate(45.000000) translate(-3.733333, -3.733333) " points="6.22222222 1.24444444 6.22222222 6.22222222 1.24444444 6.22222222"></polyline>
+                            <polyline id="形状备份-2" transform="translate(3.733333, 8.711111) rotate(45.000000) translate(-3.733333, -8.711111) " points="6.22222222 6.22222222 6.22222222 11.2 1.24444444 11.2"></polyline>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <rect id="path-1" x="0" y="0" width="18" height="18" rx="2.2"></rect>
+    </defs>
+    <g id="V1.0.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="交通事件发布-确定范围" transform="translate(-991.000000, -812.000000)">
+            <g id="编组" transform="translate(884.000000, 522.000000)">
+                <g id="编组-3" transform="translate(87.000000, 280.000000)">
+                    <g id="check" transform="translate(20.000000, 10.000000)">
+                        <rect id="蒙版" stroke="#448CD4" stroke-width="1.1" fill="#448CD4" x="0.55" y="0.55" width="16.9" height="16.9" rx="2.2"></rect>
+                        <g id="Fill-1">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <use id="蒙版" fill="#6190BF" xlink:href="#path-1"></use>
+                            <path d="M-0.64,8.916684 L0.594633945,7.69272078 L6.2750369,12.6632453 C6.2750369,12.6632453 10.4959829,8.64066908 18.2221777,1.97366945 L18.72,3.25584368 C18.72,3.25584368 12.2797786,9.66640847 6.24389259,16.4936694 L-0.64,8.916684 Z" fill="#FFFFFF" mask="url(#mask-2)"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

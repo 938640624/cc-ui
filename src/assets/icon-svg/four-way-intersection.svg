@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="322px" height="322px" viewBox="0 0 322 322" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>十字路口</title>
+    <desc>Created with Sketch.</desc>
+    <g id="V1.0.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="信号灯组" transform="translate(-77.000000, -107.000000)">
+            <g id="编组" transform="translate(76.000000, 106.000000)">
+                <g id="编组-12" transform="translate(0.000000, 0.540000)">
+                    <g id="编组-10" transform="translate(0.580000, 0.000000)">
+                        <g id="十字路口" transform="translate(0.420000, 0.920000)">
+                            <polygon id="路径-2" fill="#071429" points="90 0.0802492212 232 0.0802492212 232 90.8220561 322 90.8220561 322 233.264424 232 233.264424 232 321.538567 90 321.538567 90 233.264424 0 233.264424 0 90.8220561 90 90.8220561"></polygon>
+                            <polyline id="路径-9" stroke="#6190BF" stroke-width="2" points="232 0.541682243 232 89.8189408 322 89.8189408"></polyline>
+                            <polyline id="路径-9" stroke="#6190BF" stroke-width="2" transform="translate(277.000000, 276.899938) scale(1, -1) translate(-277.000000, -276.899938) " points="232 232.261308 232 321.538567 322 321.538567"></polyline>
+                            <polyline id="路径-9" stroke="#6190BF" stroke-width="2" transform="translate(45.000000, 276.899938) scale(-1, -1) translate(-45.000000, -276.899938) " points="-1.27897692e-12 232.261308 -1.05143672e-12 321.538567 90 321.538567"></polyline>
+                            <polyline id="路径-9" stroke="#6190BF" stroke-width="2" transform="translate(45.000000, 45.180312) scale(-1, 1) translate(-45.000000, -45.180312) " points="-1.27897692e-12 0.541682243 -1.05143672e-12 89.8189408 90 89.8189408"></polyline>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="14px" viewBox="0 0 12 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic_red_down</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="效果评估-图表" transform="translate(-1281.000000, -221.000000)">
+            <g id="编组-14" transform="translate(1214.000000, 197.000000)">
+                <g id="ic_red_down" transform="translate(73.040404, 31.039579) scale(1, -1) translate(-73.040404, -31.039579) translate(67.840669, 24.919827)">
+                    <polyline id="形状备份" fill="#FF610D" transform="translate(5.199735, 5.199735) scale(1, -1) rotate(45.000000) translate(-5.199735, -5.199735) " points="8.87650239 1.52296704 8.87650239 8.87650239 1.52296704 8.87650239"></polyline>
+                    <line x1="5.19973471" y1="1.76874181" x2="5.19973471" y2="12.2395041" id="路径-8" stroke="#FF610D" stroke-width="2" stroke-linejoin="round"></line>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

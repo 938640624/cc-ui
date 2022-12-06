@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic_compass</title>
+    <g id="1.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="实时监测-统计分析" transform="translate(-1856.000000, -134.000000)">
+            <g id="编组-21" transform="translate(1856.000000, 134.000000)">
+                <circle id="椭圆形" fill="#0C1E2E" opacity="0.800000012" cx="24" cy="24" r="24"></circle>
+                <g id="指南针" transform="translate(7.680000, 7.680000)">
+                    <g id="编组-19" transform="translate(15.991450, 15.358187) rotate(-13.000000) translate(-15.991450, -15.358187) translate(2.991450, 2.858187)">
+                        <g id="编组-20" transform="translate(8.569100, 0.000000)" fill-rule="nonzero">
+                            <polygon id="路径备份" fill="#8F3320" points="8.7474721 16.3565723 4.35191516 12.181809 16.3565723 -1.75556127e-10"></polygon>
+                            <polygon id="路径备份-2" fill="#A83B26" points="4.34618751 12.1936701 -6.12739883e-10 7.60910022 16.3565723 -4.25060768e-10"></polygon>
+                        </g>
+                        <g id="编组-20备份" transform="translate(8.929723, 15.909396) rotate(180.000000) translate(-8.929723, -15.909396) translate(0.529723, 7.509396)" fill-rule="nonzero">
+                            <polygon id="路径备份" fill="#8C8989" points="8.76062307 16.7002959 4.41727359 12.1163812 16.3697233 0.343723605"></polygon>
+                            <polygon id="路径备份-2" fill="#6F6D6D" points="4.41154594 12.1282424 0.0131509653 7.95282382 16.3697233 0.343723605"></polygon>
+                        </g>
+                        <path d="M12.9419596,10.3898798 C11.9976872,10.3898798 11.2251105,11.1624565 11.2251105,12.1067289 C11.2251105,13.0510013 11.9976872,13.823578 12.9419596,13.823578 C13.8940413,13.823578 14.6588087,13.0510013 14.6588087,12.1067289 C14.6588087,11.1624565 13.8940413,10.3898798 12.9419596,10.3898798 Z" id="路径" fill="#0C1E2E" opacity="0.800000012"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

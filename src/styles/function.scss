@@ -1,0 +1,14 @@
+
+@use "sass:math";
+
+@function vw($px, $base-vw: 1920px)  {
+    @return ($px * 100vw) / $base-vw;
+}  
+
+@function vh($px, $base-vw: 1080px)  {
+    @return ($px * 100vh) / $base-vw;
+}  
+  
+@function getYByAngleAndX($angle, $x) {
+    @return $x * math.tan($angle);
+  }

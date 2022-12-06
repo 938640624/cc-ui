@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="11px" viewBox="0 0 10 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>direction</title>
+    <desc>Created with Sketch.</desc>
+    <g id="V1.0.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="示范巴士" transform="translate(-1786.000000, -273.000000)" fill="#FFFFFF">
+            <g id="编组-5" transform="translate(1550.000000, 122.000000)">
+                <path d="M245.893422,157.68999 C246.39035,157.524486 246.403118,156.826811 245.91288,156.642947 L237.025231,153.310057 C236.57862,153.1426 236.142594,153.578614 236.310063,154.025225 L239.642941,162.912886 C239.826817,163.403125 240.524479,163.390344 240.689996,162.893428 L241.990959,158.991197 L245.893422,157.68999 Z" id="direction" transform="translate(241.273437, 158.273437) rotate(43.000000) translate(-241.273437, -158.273437) "></path>
+            </g>
+        </g>
+    </g>
+</svg>
