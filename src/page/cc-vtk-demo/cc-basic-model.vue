@@ -10,7 +10,7 @@
 import ccHeader from '@/components/cc-header/cc-header.vue'
 import ccScroll from '@/components/cc-scroll/cc-scroll.vue'
 
-import vtkFullScreenRenderWindow from '@kitware/vtk.js/Rendering/Misc/FullScreenRenderWindow'
+// import vtkFullScreenRenderWindow from '@kitware/vtk.js/Rendering/Misc/FullScreenRenderWindow'
 import vtkCalculator from '@kitware/vtk.js/Filters/General/Calculator'
 import vtkCubeAxesActor from '@kitware/vtk.js/Rendering/Core/CubeAxesActor'
 import vtkInteractorStyleTrackballCamera from '@kitware/vtk.js/Interaction/Style/InteractorStyleTrackballCamera'

@@ -45,7 +45,8 @@ import Mars3dCirclewave from '../page/cc-cesium-demo/cc-mars3d-circlewave.vue'
 import BasicModel from '@/page/cc-vtk-demo/cc-basic-model.vue'
 import ItkModel from '@/page/cc-vtk-demo/cc-itk-model.vue'
 import MoreRenderer from '@/page/cc-vtk-demo/cc-more-renderer.vue'
-import XYZRendererViews from '@/page/cc-vtk-demo/cc-xyz-renderer-views.vue'
+import XYZRenderer from '@/page/cc-vtk-demo/cc-xyz-renderer.vue'
+import CbctRenderer from '@/page/cc-vtk-demo/cc-cbct-renderer.vue'
 import AxisRotateModel from '@/page/cc-vtk-demo/cc-axis-rotate-model.vue'
 
 import BasicAmap from '@/page/cc-Amap-demo/cc-Amap-basic.vue'
@@ -245,9 +246,14 @@ const routes = [
         component: MoreRenderer,
     },
     {
-        path: '/xyz-renderer-views',
-        name: 'XYZRendererViews',
-        component: XYZRendererViews,
+        path: '/xyz-renderer',
+        name: 'XYZRenderer',
+        component: XYZRenderer,
+    },
+    {
+        path: '/cbct-renderer',
+        name: 'CbctRenderer',
+        component: CbctRenderer,
     },
     {
         path: '/axis-rotate-model',

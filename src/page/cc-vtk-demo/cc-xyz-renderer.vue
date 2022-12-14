@@ -1,6 +1,6 @@
 <template>
-    <div class="xyz-renderer-views-page">
-        <cc-header :headtitle="'XyzRendererViews(xyz轴多场景渲染)'" />
+    <div class="xyz-renderer-page">
+        <cc-header :headtitle="'xyzRenderer(xyz轴多场景渲染)'" />
         <cc-scroll>
             <div class="vtkDiv"></div>
             <el-button type="primary" class="reset-btn">重置页面</el-button>
@@ -40,7 +40,7 @@ import '@kitware/vtk.js/favicon'
 import '@kitware/vtk.js/Rendering/Profiles/All'
 import { VIEW_COLORS } from '@/page/cc-vtk-demo/constant'
 export default {
-    name: 'xyz-renderer-views-page',
+    name: 'xyz-renderer-page',
     components: {
         ccScroll,
         ccHeader,
@@ -108,6 +108,7 @@ export default {
                         widgetManager: vtkWidgetManager.newInstance(),
                         orientationWidget: null,
                     }
+                    // setParallelProjection：设置平行投影的值
                     obj.renderer.getActiveCamera().setParallelProjection(true)
                     obj.renderer.setBackground(...VIEW_COLORS[i])
                     obj.renderWindow.addRenderer(obj.renderer)

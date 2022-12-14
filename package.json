@@ -4,13 +4,16 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
-    "start": "vue-cli-service serve --open",
+    "start": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "preview": "vite preview",
+    "D": "node deploy"
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
-    "@kitware/vtk.js": "^25.12.0",
+    "@kitware/vtk.js": "^21.3.0",
+    "axios": "^0.27.2",
     "@open-wc/webpack-import-meta-loader": "^0.4.7",
     "cesium": "1.80.0",
     "codemirror": "^5.62.3",
@@ -19,6 +22,8 @@
     "element-ui": "^2.15.3",
     "mars3d": "^3.2.4",
     "sass-resources-loader": "^2.2.4",
+    "gl-matrix": "^3.4.3",
+    "itk": "^14.1.1",
     "three": "^0.132.2",
     "vue": "^2.6.11",
     "vue-cli-plugin-cesium": "^1.1.7",

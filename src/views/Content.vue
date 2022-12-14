@@ -233,8 +233,12 @@ export default {
                             name: '多场景渲染',
                         },
                         {
-                            path: '/xyz-renderer-views',
+                            path: '/xyz-renderer',
                             name: 'xyz轴多场景渲染',
+                        },
+                        {
+                            path: '/cbct-renderer',
+                            name: 'cbct文件上传解析',
                         },
                         {
                             path: 'axis-rotate-model',

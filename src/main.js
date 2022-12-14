@@ -13,7 +13,6 @@ import './styles/index.scss'
 import 'cesium/Widgets/widgets.css'
 import 'mars3d/dist/mars3d.css'
 import * as mars3d from 'mars3d'
-// console.log(Directives, 'Directives')
 
 Vue.use(ElementUI)
 Vue.use(Directives)
