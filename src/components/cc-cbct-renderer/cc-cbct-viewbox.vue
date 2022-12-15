@@ -256,13 +256,13 @@ export default {
         // 将事件传递给父节点，包括它们来自的视图
         onRotate(axis, angle) {
             this.$emit('rotate', this.index, axis, angle)
+            // console.log(axis, angle, this.index, 'angle')
         },
         onThickness(axis, thickness) {
             this.$emit('thickness', this.index, axis, thickness)
         },
 
         onResize() {
-            console.log('resize')
             this.genericRenderWindow.resize()
             const [width, height] = [this.$refs.container.offsetWidth, this.$refs.container.offsetHeight]
             this.width = width

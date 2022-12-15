@@ -245,174 +245,11 @@ export default {
             tempObj: { color: '#efee22', isShow: true },
         }
     },
-    inject: ['onScrolled', 'getRenderWindow', 'getSliceIntersection'],
+    inject: ['getRenderWindow', 'getSliceIntersection'],
     provide() {
         return {
             getScreenPos: this.getScreenPos,
         }
-    },
-    methods: {
-        getWorldPos(pos) {
-            if (!this.dPos) {
-                this.dPos = vtkCoordinate.newInstance()
-                this.dPos.setCoordinateSystemToDisplay()
-                this.renderWindow = this.getRenderWindow(this.index)
-                this.renderer = this.renderWindow.getRenderer()
-                window.rw = this.renderWindow
-                this.camera = this.renderer.getActiveCamera()
-                this.camera.onModified(this.modified)
-            }
-            this.dPos.setValue(pos[0], pos[1], 0)
-            window.rw = this.renderWindow
-            const worldPos = this.dPos.getComputedWorldValue(this.renderer)
-            return worldPos
-        },
-        getScreenPos(point3d) {
-            if (!this.wPos) {
-                this.wPos = vtkCoordinate.newInstance()
-                this.wPos.setCoordinateSystemToWorld()
-            }
-            this.wPos.setValue(point3d)
-            const canvasCoords = this.wPos.getComputedDisplayValue(this.renderer)
-            return canvasCoords
-        },
-        clearDistance() {
-            this.distances = []
-        },
-
-        onMyDown(event) {
-            if (this.distance && event.button == 0) {
-                if (this.firstDistancePoint) {
-                    const worldPos = this.getWorldPos([event.offsetX, event.offsetY])
-                    this.tempObj = {
-                        color: '#efee22',
-                        worldPos1: [...worldPos],
-                        index: this.index,
-                        isShow: true,
-                        worldPos: this.getSliceIntersection(),
-                    }
-                    this.tempObj.slice = [...worldPos][this.slice].toFixed(0)
-
-                    const screenPoint = this.getScreenPos([...worldPos])
-
-                    this.tempObj.point1 = { x: screenPoint[0], y: screenPoint[1] }
-                    this.tempObj.point2 = { x: screenPoint[0], y: screenPoint[1] }
-                    // this.tempObj.point1 = { x: event.offsetX, y: event.offsetY };
-                    // this.tempObj.point2 = { x: event.offsetX, y: event.offsetY };
-                    this.tempObj.distance = '0.00 mm'
-                    this.firstDistancePoint = false
-                    this.distances.push(this.tempObj)
-                } else {
-                    const worldPos = this.getWorldPos([event.offsetX, event.offsetY])
-                    const screenPoint = this.getScreenPos([...worldPos])
-                    this.tempObj.point2 = { x: screenPoint[0], y: screenPoint[1] }
-                    this.tempObj.worldPos2 = [...worldPos]
-                    const { worldPos1, worldPos2 } = this.tempObj
-                    this.tempObj.distance = vec3.distance(worldPos1, worldPos2).toFixed(2) + ' mm'
-                    const length = this.distances.length
-                    if (length > 0) this.distances.splice(length - 1, 1, this.tempObj)
-                    this.firstDistancePoint = true
-                }
-            }
-        },
-        onMove(event) {
-            if (this.distance) {
-                if (!this.firstDistancePoint) {
-                    const worldPos = this.getWorldPos([event.offsetX, event.offsetY])
-                    const screenPoint = this.getScreenPos([...worldPos])
-                    this.tempObj.point2 = { x: screenPoint[0], y: screenPoint[1] }
-                    this.tempObj.worldPos2 = [...worldPos]
-                    const { worldPos1, worldPos2 } = this.tempObj
-                    this.tempObj.distance = vec3.distance(worldPos1, worldPos2).toFixed(2) + ' mm'
-                    const length = this.distances.length
-                    if (length > 0) this.distances.splice(length - 1, 1, this.tempObj)
-                }
-            }
-            if (this.mousedown) {
-                const shiftKey = event.shiftKey
-                const isX = this.action.endsWith('X')
-                const newPos = [event.offsetX, event.offsetY]
-
-                // account for the view's rotation by rotating the mouse position around the center
-                if (this.viewRotation)
-                    vec2.rotate(newPos, newPos, [this.x, this.y], -glMatrix.toRadian(this.viewRotation))
-
-                if (this.action.startsWith('rotate')) {
-                    // calculate the rotation angle from mouse to center [x, y]
-                    const nx = newPos[0] - this.x
-                    const ny = newPos[1] - this.y
-
-                    let angle = Math.floor(radians2degrees(Math.atan2(ny, nx)))
-
-                    if (this.invertAngle) {
-                        //if positive, subtract 180, if negative, add 180, to get the same value as the right handle
-                        angle += 180 * (angle < 0 ? 1 : -1)
-                    }
-                    if (!isX) {
-                        //account for Y axis difference
-                        angle -= 90
-                    }
-
-                    // NOTE: Use this only if we fix the 90deg bug and it works 0 - 180
-                    // if (angle >= 90) angle -= 180;
-                    // else if (angle <= -90) angle += 180;
-
-                    // Otherwise force to a 178 angle swing
-                    if (angle >= 89) angle = 89
-                    else if (angle <= -89) angle = -89
-
-                    // emit the rotation
-                    this.$emit('rotate', isX ? 'x' : 'y', angle)
-                    if (this.lockAxis && !(this.shiftToUnlockAxis && shiftKey)) {
-                        this.$emit('rotate', !isX ? 'x' : 'y', angle - this.axisOffset)
-                    }
-                } else if (this.action.startsWith('thickness')) {
-                    // adjust for the rotation of the plane to compare as if the axis wasn't rotated
-                    vec2.rotate(
-                        newPos,
-                        newPos,
-                        [this.x, this.y],
-                        -glMatrix.toRadian(isX ? this.xAxis.rotation : this.yAxis.rotation)
-                    )
-                    let dist = Math.floor(isX ? Math.abs(newPos[1] - this.y) : Math.abs(newPos[0] - this.x))
-
-                    // Have a deadzone so it can snap to "nothing". Default is 0.1. Must be > 0 or it shows nothing
-                    if (dist < 3) dist = 0.05
-                    // Multiply by 2 since the thickness is split between the axis
-                    this.$emit('thickness', isX ? 'x' : 'y', dist * 2)
-                }
-            }
-        },
-        startAction(event, action, invertAngle = false) {
-            this.action = action
-            this.mousedown = true
-            if (action.startsWith('rotate')) {
-                this.invertAngle = invertAngle
-                this.axisOffset = action.endsWith('X')
-                    ? this.xAxis.rotation - this.yAxis.rotation
-                    : this.yAxis.rotation - this.xAxis.rotation
-            }
-        },
-        modified() {
-            // console.log(" this is modifled sssssss");
-            if (this.distances.length <= 0) return
-            this.renderWindow.getRenderWindow().render()
-            this.distances.forEach((e) => {
-                const screenPoint1 = this.getScreenPos([...e.worldPos1])
-                const screenPoint2 = this.getScreenPos([...e.worldPos2])
-                e.point1 = { x: screenPoint1[0], y: screenPoint1[1] }
-                e.point2 = { x: screenPoint2[0], y: screenPoint2[1] }
-                const [a, b, c] = e.worldPos
-                const [x, y, z] = this.sliceIntersection
-                e.isShow = this.getEq(a, x) && this.getEq(b, y) && this.getEq(c, z)
-            })
-        },
-        getEq(a, b) {
-            return a.toFixed(0) == b.toFixed(0)
-        },
-        endMove() {
-            this.mousedown = false
-        },
     },
     watch: {
         sliceIntersection: {
@@ -573,6 +410,169 @@ export default {
                 rotateCursor: this.mousedown && this.action.startsWith('rotate'),
                 thicknessCursor: this.mousedown && this.action.startsWith('thickness'),
             }
+        },
+    },
+    methods: {
+        getWorldPos(pos) {
+            if (!this.dPos) {
+                this.dPos = vtkCoordinate.newInstance()
+                // setCoordinateSystemToDisplay：设置坐标系统显示
+                this.dPos.setCoordinateSystemToDisplay()
+                this.renderWindow = this.getRenderWindow(this.index)
+                this.renderer = this.renderWindow.getRenderer()
+                window.rw = this.renderWindow
+                this.camera = this.renderer.getActiveCamera()
+                this.camera.onModified(this.modified)
+            }
+            this.dPos.setValue(pos[0], pos[1], 0)
+            window.rw = this.renderWindow
+            const worldPos = this.dPos.getComputedWorldValue(this.renderer)
+            return worldPos
+        },
+        getScreenPos(point3d) {
+            if (!this.wPos) {
+                this.wPos = vtkCoordinate.newInstance()
+                this.wPos.setCoordinateSystemToWorld()
+            }
+            this.wPos.setValue(point3d)
+            const canvasCoords = this.wPos.getComputedDisplayValue(this.renderer)
+            return canvasCoords
+        },
+        clearDistance() {
+            this.distances = []
+        },
+
+        onMyDown(event) {
+            if (this.distance && event.button == 0) {
+                if (this.firstDistancePoint) {
+                    const worldPos = this.getWorldPos([event.offsetX, event.offsetY])
+                    this.tempObj = {
+                        color: '#efee22',
+                        worldPos1: [...worldPos],
+                        index: this.index,
+                        isShow: true,
+                        worldPos: this.getSliceIntersection(),
+                    }
+                    this.tempObj.slice = [...worldPos][this.slice].toFixed(0)
+
+                    const screenPoint = this.getScreenPos([...worldPos])
+
+                    this.tempObj.point1 = { x: screenPoint[0], y: screenPoint[1] }
+                    this.tempObj.point2 = { x: screenPoint[0], y: screenPoint[1] }
+                    // this.tempObj.point1 = { x: event.offsetX, y: event.offsetY };
+                    // this.tempObj.point2 = { x: event.offsetX, y: event.offsetY };
+                    this.tempObj.distance = '0.00 mm'
+                    this.firstDistancePoint = false
+                    this.distances.push(this.tempObj)
+                } else {
+                    const worldPos = this.getWorldPos([event.offsetX, event.offsetY])
+                    const screenPoint = this.getScreenPos([...worldPos])
+                    this.tempObj.point2 = { x: screenPoint[0], y: screenPoint[1] }
+                    this.tempObj.worldPos2 = [...worldPos]
+                    const { worldPos1, worldPos2 } = this.tempObj
+                    this.tempObj.distance = vec3.distance(worldPos1, worldPos2).toFixed(2) + ' mm'
+                    const length = this.distances.length
+                    if (length > 0) this.distances.splice(length - 1, 1, this.tempObj)
+                    this.firstDistancePoint = true
+                }
+            }
+        },
+        onMove(event) {
+            if (this.distance) {
+                if (!this.firstDistancePoint) {
+                    const worldPos = this.getWorldPos([event.offsetX, event.offsetY])
+                    const screenPoint = this.getScreenPos([...worldPos])
+                    this.tempObj.point2 = { x: screenPoint[0], y: screenPoint[1] }
+                    this.tempObj.worldPos2 = [...worldPos]
+                    const { worldPos1, worldPos2 } = this.tempObj
+                    this.tempObj.distance = vec3.distance(worldPos1, worldPos2).toFixed(2) + ' mm'
+                    const length = this.distances.length
+                    if (length > 0) this.distances.splice(length - 1, 1, this.tempObj)
+                }
+            }
+            if (this.mousedown) {
+                const shiftKey = event.shiftKey
+                const isX = this.action.endsWith('X')
+                const newPos = [event.offsetX, event.offsetY]
+
+                // account for the view's rotation by rotating the mouse position around the center
+                if (this.viewRotation)
+                    vec2.rotate(newPos, newPos, [this.x, this.y], -glMatrix.toRadian(this.viewRotation))
+
+                if (this.action.startsWith('rotate')) {
+                    // calculate the rotation angle from mouse to center [x, y]
+                    const nx = newPos[0] - this.x
+                    const ny = newPos[1] - this.y
+
+                    let angle = Math.floor(radians2degrees(Math.atan2(ny, nx)))
+
+                    if (this.invertAngle) {
+                        //if positive, subtract 180, if negative, add 180, to get the same value as the right handle
+                        angle += 180 * (angle < 0 ? 1 : -1)
+                    }
+                    if (!isX) {
+                        //account for Y axis difference
+                        angle -= 90
+                    }
+
+                    // NOTE: Use this only if we fix the 90deg bug and it works 0 - 180
+                    // if (angle >= 90) angle -= 180;
+                    // else if (angle <= -90) angle += 180;
+
+                    // Otherwise force to a 178 angle swing
+                    if (angle >= 89) angle = 89
+                    else if (angle <= -89) angle = -89
+
+                    // emit the rotation
+                    this.$emit('rotate', isX ? 'x' : 'y', angle)
+                    if (this.lockAxis && !(this.shiftToUnlockAxis && shiftKey)) {
+                        this.$emit('rotate', !isX ? 'x' : 'y', angle - this.axisOffset)
+                    }
+                } else if (this.action.startsWith('thickness')) {
+                    // adjust for the rotation of the plane to compare as if the axis wasn't rotated
+                    vec2.rotate(
+                        newPos,
+                        newPos,
+                        [this.x, this.y],
+                        -glMatrix.toRadian(isX ? this.xAxis.rotation : this.yAxis.rotation)
+                    )
+                    let dist = Math.floor(isX ? Math.abs(newPos[1] - this.y) : Math.abs(newPos[0] - this.x))
+
+                    // Have a deadzone so it can snap to "nothing". Default is 0.1. Must be > 0 or it shows nothing
+                    if (dist < 3) dist = 0.05
+                    // Multiply by 2 since the thickness is split between the axis
+                    this.$emit('thickness', isX ? 'x' : 'y', dist * 2)
+                }
+            }
+        },
+        startAction(event, action, invertAngle = false) {
+            this.action = action
+            this.mousedown = true
+            if (action.startsWith('rotate')) {
+                this.invertAngle = invertAngle
+                this.axisOffset = action.endsWith('X')
+                    ? this.xAxis.rotation - this.yAxis.rotation
+                    : this.yAxis.rotation - this.xAxis.rotation
+            }
+        },
+        modified() {
+            if (this.distances.length <= 0) return
+            this.renderWindow.getRenderWindow().render()
+            this.distances.forEach((e) => {
+                const screenPoint1 = this.getScreenPos([...e.worldPos1])
+                const screenPoint2 = this.getScreenPos([...e.worldPos2])
+                e.point1 = { x: screenPoint1[0], y: screenPoint1[1] }
+                e.point2 = { x: screenPoint2[0], y: screenPoint2[1] }
+                const [a, b, c] = e.worldPos
+                const [x, y, z] = this.sliceIntersection
+                e.isShow = this.getEq(a, x) && this.getEq(b, y) && this.getEq(c, z)
+            })
+        },
+        getEq(a, b) {
+            return a.toFixed(0) == b.toFixed(0)
+        },
+        endMove() {
+            this.mousedown = false
         },
     },
 }

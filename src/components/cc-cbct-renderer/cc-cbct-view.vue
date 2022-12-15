@@ -14,7 +14,25 @@
             </div>
             <view-3d :volumes="volumes"></view-3d>
         </div>
-        <div class="view-right"></div>
+        <div class="view-right">
+            <el-tabs v-model="selectedTab" stretch>
+                <el-tab-pane label="TOOL" name="tool">
+                    <div>{{ sliceIntersection }}</div>
+                    <el-button :class="activeTool === 'SELECT' ? 'active-btn' : ''" @click="selectTool('SELECT')">
+                        SELECT
+                    </el-button>
+                    <el-button :class="activeTool === 'LEVEL' ? 'active-btn' : ''" @click="selectTool('LEVEL')">
+                        LEVEL
+                    </el-button>
+                    <el-button :class="activeTool === 'DISTANCE' ? 'active-btn' : ''" @click="selectTool('DISTANCE')">
+                        DISTANCE
+                    </el-button>
+                </el-tab-pane>
+                <el-tab-pane label="DATA" name="data">
+                    <PiecewiseGaussian></PiecewiseGaussian>
+                </el-tab-pane>
+            </el-tabs>
+        </div>
     </div>
 </template>
 <script>
@@ -23,14 +41,16 @@ import ccCbctViewbox from './cc-cbct-viewbox.vue'
 import vtkVolume from '@kitware/vtk.js/Rendering/Core/Volume'
 import vtkVolumeMapper from '@kitware/vtk.js/Rendering/Core/VolumeMapper'
 import vtkPlane from '@kitware/vtk.js/Common/DataModel/Plane'
-// import vtkMatrixBuilder from '@kitware/vtk.js/Common/Core/MatrixBuilder'
-// import vtkCoordinate from '@kitware/vtk.js/Rendering/Core/Coordinate'
+import PiecewiseGaussian from '@/components/cc-cbct-renderer/components/PiecewiseGaussian'
+import vtkMatrixBuilder from '@kitware/vtk.js/Common/Core/MatrixBuilder'
+import vtkCoordinate from '@kitware/vtk.js/Rendering/Core/Coordinate'
 import vtkInteractorStyleMPRWindowLevel from '@/components/cc-cbct-renderer/model/vtkInteractorStyleMPRWindowLevel'
 import vtkInteractorStyleMPRCrosshairs from '@/components/cc-cbct-renderer/model/vtkInteractorStyleMPRCrosshairs.js'
 export default {
     components: {
         ccCbctViewbox,
         view3d,
+        PiecewiseGaussian,
     },
     data() {
         return {
@@ -125,20 +145,30 @@ export default {
                 view.window.width = 3000
             })
             this.sliceIntersection = this.getVolumeCenter(volumeMapper)
+            // console.log(volumeMapper, 'volumeMapper', this.sliceIntersection, 'sliceIntersection')
             this.volumes = [volumeActor]
         },
 
         onScrolled() {
-            console.log('scrolled')
             const planes = []
             Object.values(this.components).forEach((component) => {
                 const camera = component.genericRenderWindow.getRenderer().getActiveCamera()
                 planes.push({
+                    // getFocalPoint：获取相机在世界坐标中的焦点
                     position: camera.getFocalPoint(),
+                    // getDirectionOfProjection：获取从相机位置到焦点方向的矢量
                     normal: camera.getDirectionOfProjection(),
                 })
             })
             const newPoint = this.getPlaneIntersection(...planes)
+            // console.log(planes, 'planes', newPoint, 'newPoint')
+            console.log(this.newImageData, 'newImageData')
+            console.log(
+                this.newImageData.getIndexToWorld(),
+                this.newImageData.getNumberOfPoints(),
+                'get',
+                this.newImageData.getOriginByReference()
+            )
             if (!Number.isNaN(newPoint)) {
                 this.sliceIntersection = newPoint
             }
@@ -147,20 +177,12 @@ export default {
 
         saveComponentRefGenerator(viewportIndex) {
             return (component) => {
-                this.components[viewportIndex] = component
-                const { windowWidth, windowLevel } = this.getVOI(component.volumes[0])
-                // get initial window leveling
-                this[viewportIndex].windowWidth = windowWidth
-                this[viewportIndex].windowLevel = windowLevel
-                const renderWindow = component.genericRenderWindow.getRenderWindow()
-                renderWindow.getInteractor().getInteractorStyle().setVolumeMapper(null)
-                // this.setLevelTool([viewportIndex, component])
-                renderWindow.render()
+                this.setWindowCenter([viewportIndex, component])
+                this.setLevelTool([viewportIndex, component])
             }
         },
 
         onRotate(index, axis, angle) {
-            console.log('旋转')
             switch (index) {
                 case 'top':
                     if (axis === 'x') this.front.slicePlaneYRotation = angle
@@ -178,7 +200,6 @@ export default {
         },
 
         onThickness(index, axis, thickness) {
-            console.log('拉伸')
             const shouldBeMIP = thickness > 1
             let view
             switch (index) {
@@ -199,6 +220,51 @@ export default {
             if (shouldBeMIP && view.blendMode === 'none') view.blendMode = 'MIP'
         },
 
+        onCrosshairPointSelected({ index, worldPos }) {
+            Object.entries(this.components).forEach(([viewportIndex, component]) => {
+                if (viewportIndex !== index) {
+                    const renderWindow = component.genericRenderWindow.getRenderWindow()
+                    const istyle = renderWindow.getInteractor().getInteractorStyle()
+                    const sliceNormal = istyle.getSliceNormal()
+                    // vtkMatrixBuilder：提供创建mat4转换矩阵的系统，返回matrixBuilder Object实例
+                    const transform = vtkMatrixBuilder
+                        .buildFromDegree()
+                        // identity：将matrixBuilder重置为单位矩阵
+                        .identity()
+                        // 将当前矩阵与转换矩阵相乘，该转换矩阵归一化
+                        .rotateFromDirections(sliceNormal, [1, 0, 0])
+
+                    const mutatedWorldPos = worldPos.slice()
+                    transform.apply(mutatedWorldPos)
+                    const slice = mutatedWorldPos[0]
+                    istyle.setSlice(slice)
+                    renderWindow.render()
+                }
+
+                // TODO: 未添加到视图中，暂时发现未生效
+                const wPos = vtkCoordinate.newInstance()
+                wPos.setCoordinateSystemToWorld()
+                if (!Array.isArray(worldPos)) {
+                    //hack by lyx ，vtkjs版本问题，要求必须是一个Array
+                    worldPos = [...worldPos]
+                }
+                wPos.setValue(worldPos)
+                console.log(wPos.getValue(), 'wPos')
+            })
+        },
+
+        // 设置初始窗口调平
+        setWindowCenter([viewportIndex, component]) {
+            // console.log(viewportIndex, component, 'component')
+            this.components[viewportIndex] = component
+            const { windowWidth, windowCenter } = this.getVOI(component.volumes[0])
+            this[viewportIndex].windowWidth = windowWidth
+            this[viewportIndex].windowCenter = windowCenter
+            const renderWindow = component.genericRenderWindow.getRenderWindow()
+            renderWindow.getInteractor().getInteractorStyle().setVolumeMapper(null)
+            renderWindow.render()
+        },
+
         setLevelTool([viewportIndex, component]) {
             const istyle = vtkInteractorStyleMPRWindowLevel.newInstance()
             istyle.setOnScroll(this.onScrolled)
@@ -217,6 +283,7 @@ export default {
             this.setInteractor(component, istyle)
         },
 
+        // 设置新的交互器
         setInteractor(component, istyle) {
             const renderWindow = component.genericRenderWindow.getRenderWindow()
             //我们假设旧的样式总是从MPRSlice样式扩展而来
@@ -235,10 +302,29 @@ export default {
             istyle.setVolumeMapper(component.volumes[0])
         },
 
+        selectTool(tool) {
+            this.activeTool = tool
+            switch (tool) {
+                case 'LEVEL':
+                    Object.entries(this.components).forEach(([key, value]) => {
+                        this.setWindowCenter([key, value])
+                        this.setLevelTool([key, value])
+                    })
+                    this.$store.commit('setDrawRuler', false)
+                    break
+                case 'SELECT':
+                    Object.entries(this.components).forEach(this.setCrosshairTool)
+                    this.$store.commit('setDrawRuler', false)
+                    break
+                case 'DISTANCE':
+                    this.$store.commit('setDrawRuler', !this.$store.state.distance)
+                    break
+            }
+        },
+
         updateLevels({ windowCenter, windowWidth, index }) {
             this[index].window.center = windowCenter
             this[index].window.width = windowWidth
-
             if (this.syncWindowLevels) {
                 Object.entries(this.components)
                     .filter(([key]) => key !== index)
@@ -275,7 +361,7 @@ export default {
                     }
                 }
             } catch (err) {
-                console.log('some issue calculating the plane intersection')
+                // console.log('some issue calculating the plane intersection')
             }
             return NaN
         },
@@ -327,6 +413,11 @@ export default {
     .view-right {
         width: 410px;
         height: 100%;
+        .active-btn {
+            color: #409eff;
+            border-color: #c6e2ff;
+            background-color: #ecf5ff;
+        }
     }
 }
 </style>

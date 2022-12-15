@@ -5,7 +5,7 @@
 </template>
 
 <script>
-// import { mapMutations } from 'vuex'
+import { mapMutations } from 'vuex'
 
 import vtkWidgetManager from '@kitware/vtk.js/Widgets/Core/WidgetManager'
 import vtkGenericRenderWindow from '@kitware/vtk.js/Rendering/Misc/GenericRenderWindow'
@@ -36,7 +36,7 @@ export default {
     },
     inject: ['imageData'],
     methods: {
-        // ...mapMutations('three', ['set3DInfo']),
+        ...mapMutations('three', ['set3DInfo']),
         updateVolumesForRendering(volumes) {
             if (volumes) {
                 volumes.forEach((volume) => {
@@ -70,7 +70,6 @@ export default {
         // this.mapper.setInputConnection()
         this.actor.setMapper(this.mapper)
 
-        // this.mapper.setInputData(this.$store.state.loader.imageData)
         this.mapper.setInputData(this.newImageData)
 
         this.renderer.addVolume(this.actor)
@@ -81,7 +80,6 @@ export default {
         // ColorTransferFunction（颜色传递函数）：是RGB或HSV空间中的颜色映射，使用分段函数插值修改颜色
         this.lookupTable = vtkColorTransferFunction.newInstance()
         this.lookupTable.applyColorMap(vtkColorMaps.getPresetByName('Cool to Warm'))
-        // const range = this.$store.state.loader.imageData.getPointData().getScalars().getRange()
         const range = this.newImageData.getPointData().getScalars().getRange()
         // console.log(range);
         // setMappingRange：设置映射范围
@@ -97,21 +95,20 @@ export default {
 
         /*  this.setPiecewiseFun(this.piecewiseFun)
       this.setLookupTable(this.lookupTable) */
-        // this.set3DInfo({
-        //     actor: this.actor,
-        //     renderer: this.renderer,
-        //     renderWindow: this.renderWindow,
-        //     piecewiseFun: this.piecewiseFun,
-        //     lookupTable: this.lookupTable,
-        //     mapper: this.mapper,
-        //     widgetManager: this.widgetManager,
-        //     range: range,
-        //     volumes: this.volumes,
-        //     genericRenderWindow: this.genericRenderWindow,
-        // })
+        this.set3DInfo({
+            actor: this.actor,
+            renderer: this.renderer,
+            renderWindow: this.renderWindow,
+            piecewiseFun: this.piecewiseFun,
+            lookupTable: this.lookupTable,
+            mapper: this.mapper,
+            widgetManager: this.widgetManager,
+            range: range,
+            volumes: this.volumes,
+            genericRenderWindow: this.genericRenderWindow,
+        })
 
         // this.mapper.setInputConnection(this.volumes[0]);
-        // window.imageData = this.$store.state.loader.imageData
         window.imageData = this.newImageData
         this.renderer.resetCamera()
         this.renderWindow.render()
