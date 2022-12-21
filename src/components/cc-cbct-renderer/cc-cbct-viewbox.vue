@@ -24,6 +24,11 @@ import vtkCoordinate from '@kitware/vtk.js/Rendering/Core/Coordinate'
 
 import ViewportOverlay from './components/ViewportOverlay.vue'
 import MPRInteractor from './components/MPRInteractor.vue'
+// vtkImageSlice(图片切片)：为vtk提供2D图像显示支持，与vtkImageSlice道具相关联放置在渲染器中
+// import vtkImageSlice from '@kitware/vtk.js/Rendering/Core/ImageSlice'
+
+// vtkImageReslice：图像旋转、缩放和平移；图像中提取切片
+// import vtkImageReslice from '@kitware/vtk.js/Imaging/Core/ImageReslice'
 
 import { quat, vec3, mat4 } from 'gl-matrix'
 import vtkInteractorStyleMPRSlice from '@/components/cc-cbct-renderer/model/vtkInteractorStyleMPRSlice'
@@ -75,8 +80,11 @@ export default {
             this.subs[k].unsubscribe()
         })
     },
-    inject: ['onScrolled', 'getSliceIntersection'],
+    inject: ['imageData', 'onScrolled', 'getSliceIntersection'],
     computed: {
+        newImageData() {
+            return this.imageData()
+        },
         //     // Cribbed from the index and views
         slicePlaneNormal() {
             return this.views[this.index].slicePlaneNormal
@@ -233,13 +241,28 @@ export default {
             const inter = this.renderWindow.getInteractor()
             inter.setInteractorStyle(istyle)
             const istyleVolumeMapper = this.volumes[0].getMapper()
+
+            // const imageReslice = vtkImageReslice.newInstance()
+            // imageReslice.setInputData(this.newImageData)
+            // // imageReslice.setSlabNumberOfSlices(2)
+            // imageReslice.setOutputDimensionality(2)
+            // const axes = mat4.identity(new Float64Array(16))
+            // mat4.rotateX(axes, axes, (45 * Math.PI) / 180)
+            // imageReslice.setResliceAxes(axes)
+            // imageReslice.setOutputScalarType('Uint16Array')
+            // imageReslice.setScalarScale(65535 / 255)
+            // istyleVolumeMapper.setInputConnection(imageReslice.getOutputPort())
+
             istyle.setVolumeMapper(istyleVolumeMapper)
             // getSliceRange：检索切片的最小和最大可能值
             const range = istyle.getSliceRange()
+            // console.log(range, 'range')
             istyle.setSlice((range[0] + range[1]) / 2)
+
             // 将当前volume添加到VTK渲染器
             this.updateVolumesForRendering(this.volumes)
             this.updateSlicePlane()
+
             // 强制初始绘制将画布设置为父边界
             this.onResize()
             if (this.onCreated) {

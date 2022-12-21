@@ -46,11 +46,9 @@ export default {
     },
     watch: {
         seletedColor(n) {
-            console.log(n, 'seletedColor')
             this.changePreset(n)
         },
         lookupTable(n) {
-            console.log(n, 'lookupTable')
             if (n) {
                 this.init()
             }

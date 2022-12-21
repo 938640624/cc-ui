@@ -40,10 +40,15 @@ import view3d from './components/view-3d.vue'
 import ccCbctViewbox from './cc-cbct-viewbox.vue'
 import vtkVolume from '@kitware/vtk.js/Rendering/Core/Volume'
 import vtkVolumeMapper from '@kitware/vtk.js/Rendering/Core/VolumeMapper'
+// import vtkImageSlice from '@kitware/vtk.js/Rendering/Core/ImageSlice'
 import vtkPlane from '@kitware/vtk.js/Common/DataModel/Plane'
 import PiecewiseGaussian from '@/components/cc-cbct-renderer/components/PiecewiseGaussian'
 import vtkMatrixBuilder from '@kitware/vtk.js/Common/Core/MatrixBuilder'
 import vtkCoordinate from '@kitware/vtk.js/Rendering/Core/Coordinate'
+// vtkImageReslice：图像旋转、缩放和平移；图像中提取切片
+import vtkImageReslice from '@kitware/vtk.js/Imaging/Core/ImageReslice'
+import { mat4 } from 'gl-matrix'
+
 import vtkInteractorStyleMPRWindowLevel from '@/components/cc-cbct-renderer/model/vtkInteractorStyleMPRWindowLevel'
 import vtkInteractorStyleMPRCrosshairs from '@/components/cc-cbct-renderer/model/vtkInteractorStyleMPRCrosshairs.js'
 export default {
@@ -130,10 +135,28 @@ export default {
             const volumeActor = vtkVolume.newInstance()
             // vtkVolumeMapper继承自mapper，使用片段程序在GPU上执行光线投射的体积映射器
             const volumeMapper = vtkVolumeMapper.newInstance()
+
             // 设置用于渲染的样本之间的距离
             volumeMapper.setSampleDistance(1)
             volumeActor.setMapper(volumeMapper)
             volumeMapper.setInputData(this.newImageData)
+
+            const imageReslice = vtkImageReslice.newInstance()
+            imageReslice.setSlabMode(2)
+            imageReslice.setAutoCropOutput(true)
+            imageReslice.setInputData(this.newImageData)
+            imageReslice.setSlabNumberOfSlices(2)
+            // imageReslice.setOutputDimensionality(2)
+            const axes = mat4.identity(new Float64Array(16))
+            mat4.rotateX(axes, axes, (45 * Math.PI) / 180)
+            imageReslice.setResliceAxes(axes)
+            imageReslice.setBackgroundColor([0, 0, 0])
+            imageReslice.setOutputScalarType('Uint16A/rray')
+            imageReslice.setScalarScale(65535 / 255)
+            // console.log(imageReslice, 'getState')
+            // console.log('getResliceAxes', imageReslice.getSlabMode())
+            volumeMapper.setInputConnection(imageReslice.getOutputPort())
+
             const rgbTransferFunction = volumeActor
                 // getProperty 获取actors表面属性的属性对象，是vtkProperty对象的实例
                 .getProperty()
@@ -145,6 +168,7 @@ export default {
                 view.window.width = 3000
             })
             this.sliceIntersection = this.getVolumeCenter(volumeMapper)
+            // console.log(this.sliceIntersection, 'sliceIntersection')
             // console.log(volumeMapper, 'volumeMapper', this.sliceIntersection, 'sliceIntersection')
             this.volumes = [volumeActor]
         },
@@ -162,13 +186,7 @@ export default {
             })
             const newPoint = this.getPlaneIntersection(...planes)
             // console.log(planes, 'planes', newPoint, 'newPoint')
-            console.log(this.newImageData, 'newImageData')
-            console.log(
-                this.newImageData.getIndexToWorld(),
-                this.newImageData.getNumberOfPoints(),
-                'get',
-                this.newImageData.getOriginByReference()
-            )
+            // console.log(this.newImageData, 'newImageData')
             if (!Number.isNaN(newPoint)) {
                 this.sliceIntersection = newPoint
             }
