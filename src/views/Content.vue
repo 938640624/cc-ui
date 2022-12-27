@@ -144,6 +144,10 @@ export default {
                             path: '/spotlight',
                             name: '聚光灯效果',
                         },
+                        {
+                            path: '/mouse-wizard',
+                            name: '鼠标精灵',
+                        },
                     ],
                 },
                 {

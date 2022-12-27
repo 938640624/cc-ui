@@ -23,6 +23,7 @@ import ProgressBar from '../page/cc-progress-bar/progress-bar.vue'
 
 import TextKtv from '../page/cc-css-demo/cc-text-ktv.vue'
 import Spotlight from '../page/cc-css-demo/cc-spotlight.vue'
+import MouseWizard from '../page/cc-css-demo/cc-mouse-wizard.vue'
 
 import CanvasAlipay from '../page/cc-canvas/cc-alipay.vue'
 import CanvasColorMouse from '../page/cc-canvas/cc-color-mouse.vue'
@@ -150,6 +151,11 @@ const routes = [
         path: '/spotlight',
         name: 'Spotlight',
         component: Spotlight,
+    },
+    {
+        path: '/mouse-wizard',
+        name: 'MouseWizard',
+        component: MouseWizard,
     },
 
     {
