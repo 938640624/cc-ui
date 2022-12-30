@@ -4,7 +4,7 @@
             <div v-for="(view, key) in viewDataArray" :key="key" class="view-box">
                 <cc-cbct-viewbox
                     :volumes="volumes"
-                    :sliceIntersection="sliceIntersection"
+                    :sliceIntersection.sync="sliceIntersection"
                     :views="viewDataArray"
                     :onCreated="saveComponentRefGenerator(key)"
                     :index="key"
@@ -38,6 +38,7 @@
 <script>
 import view3d from './components/view-3d.vue'
 import ccCbctViewbox from './cc-cbct-viewbox.vue'
+// import ccSliderScroll from '@/components/cc-slider-scroll/cc-slider-scroll.vue'
 import vtkVolume from '@kitware/vtk.js/Rendering/Core/Volume'
 import vtkVolumeMapper from '@kitware/vtk.js/Rendering/Core/VolumeMapper'
 // import vtkImageSlice from '@kitware/vtk.js/Rendering/Core/ImageSlice'
@@ -54,6 +55,7 @@ import vtkInteractorStyleMPRCrosshairs from '@/components/cc-cbct-renderer/model
 export default {
     components: {
         ccCbctViewbox,
+        // ccSliderScroll,
         view3d,
         PiecewiseGaussian,
     },
@@ -152,7 +154,7 @@ export default {
             imageReslice.setResliceAxes(axes)
             imageReslice.setBackgroundColor([0, 0, 0])
             imageReslice.setOutputScalarType('Uint16A/rray')
-            imageReslice.setScalarScale(65535 / 255)
+            // imageReslice.setScalarScale(65535 / 255)
             // console.log(imageReslice, 'getState')
             // console.log('getResliceAxes', imageReslice.getSlabMode())
             volumeMapper.setInputConnection(imageReslice.getOutputPort())
@@ -168,12 +170,11 @@ export default {
                 view.window.width = 3000
             })
             this.sliceIntersection = this.getVolumeCenter(volumeMapper)
-            // console.log(this.sliceIntersection, 'sliceIntersection')
-            // console.log(volumeMapper, 'volumeMapper', this.sliceIntersection, 'sliceIntersection')
             this.volumes = [volumeActor]
         },
 
         onScrolled() {
+            // console.log('scroll')
             const planes = []
             Object.values(this.components).forEach((component) => {
                 const camera = component.genericRenderWindow.getRenderer().getActiveCamera()
@@ -424,6 +425,7 @@ export default {
         display: flex;
         flex-wrap: wrap;
         .view-box {
+            position: relative;
             width: 50%;
             height: 50%;
         }

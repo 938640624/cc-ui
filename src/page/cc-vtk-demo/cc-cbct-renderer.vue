@@ -35,7 +35,6 @@ export default {
         async handleInputChange(e) {
             const files = e.target.files
             if (!files || !files.length) return
-            console.log(files, 'filse')
             // convertItkToVtkImage：将itk-wasm图像转换为vtkImageData格式
             // readImageDICOMFileSeries：从存储在Array或FileList中的一系列 DICOM File或Blob中读取图像
             const itkImage = await readImageDICOMFileSeries(files)

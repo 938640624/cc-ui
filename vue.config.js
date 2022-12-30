@@ -2,7 +2,7 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const webpack = require('webpack')
 const path = require('path')
-const vtkChainWebpack = require('@kitware/vtk.js/Utilities/config/chainWebpack')
+// const vtkChainWebpack = require('@kitware/vtk.js/Utilities/config/chainWebpack')
 
 let cesiumSource = './node_modules/cesium/Source'
 let cesiumWorkers = '../Build/Cesium/Workers'
@@ -30,12 +30,12 @@ module.exports = {
         https: false,
         hotOnly: false,
     },
-    chainWebpack: (config) => {
-        vtkChainWebpack(config)
-        // do not cache worker files
-        // https://github.com/webpack-contrib/worker-loader/issues/195
-        config.module.rule('js').exclude.add(/\.worker\.js$/)
-    },
+    // chainWebpack: (config) => {
+    //     // vtkChainWebpack(config)
+    //     // do not cache worker files
+    //     // https://github.com/webpack-contrib/worker-loader/issues/195
+    //     config.module.rule('js').exclude.add(/\.worker\.js$/)
+    // },
     configureWebpack: {
         output: {
             sourcePrefix: ' ',
@@ -48,15 +48,15 @@ module.exports = {
                 vue$: 'vue/dist/vue.esm.js',
                 '@': path.resolve('src'),
                 cesium: path.resolve(__dirname, cesiumSource),
-                '@kitware/vtk.js/Rendering/Core/ColorTransferFunction/ColorMaps.json':
-                    '@kitware/vtk.js/Rendering/Core/ColorTransferFunction/LiteColorMaps.json',
+                // '@kitware/vtk.js/Rendering/Core/ColorTransferFunction/ColorMaps.json':
+                //     '@kitware/vtk.js/Rendering/Core/ColorTransferFunction/LiteColorMaps.json',
             },
         },
         plugins: [
-            new webpack.NormalModuleReplacementPlugin(/^webvr-polyfill$/, (resource) => {
-                /* eslint-disable-next-line no-param-reassign */
-                resource.request = '@/src/vtk/webvr-empty.js'
-            }),
+            // new webpack.NormalModuleReplacementPlugin(/^webvr-polyfill$/, (resource) => {
+            //     /* eslint-disable-next-line no-param-reassign */
+            //     resource.request = '@/src/vtk/webvr-empty.js'
+            // }),
             new CopyWebpackPlugin([
                 {
                     from: path.join(cesiumSource, cesiumWorkers),

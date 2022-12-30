@@ -277,6 +277,7 @@ export default {
             return this.xAxis.thickness >= 1 ? (this.xAxis.thickness * pxRatio) / 2 : 0
         },
         yThicknessPixels() {
+            console.log('yThicknessPixels')
             // TODO: also get the pixels to world coords ratio
             let pxRatio = 1
             // divide by 2 so width is centered on the axis
@@ -312,6 +313,7 @@ export default {
             return this.point[0]
         },
         y() {
+            // console.log(window.devicePixelRatio, this.height - this.point[1], 'y', this.height, this.point, 'height')
             if (window.devicePixelRatio) {
                 return this.height - this.point[1] / window.devicePixelRatio
             }

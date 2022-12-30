@@ -82,7 +82,7 @@ export default {
     .viewColor {
         position: absolute;
         top: 4px;
-        right: 4px;
+        right: 15px;
         width: 12px;
         height: 12px;
         z-index: 100;

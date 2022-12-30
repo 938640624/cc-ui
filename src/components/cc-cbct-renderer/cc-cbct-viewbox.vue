@@ -15,6 +15,12 @@
             :index="index"
         />
         <ViewportOverlay :voi="voi" :active="isActive" :color="viewColor" />
+        <cc-slider-scroll
+            :viewkey="index"
+            :point="screenCoordSliceIntersection"
+            @slider="handleSliderScroll"
+            @slider-click="handleSliderClick"
+        ></cc-slider-scroll>
     </div>
 </template>
 <script>
@@ -24,6 +30,7 @@ import vtkCoordinate from '@kitware/vtk.js/Rendering/Core/Coordinate'
 
 import ViewportOverlay from './components/ViewportOverlay.vue'
 import MPRInteractor from './components/MPRInteractor.vue'
+import ccSliderScroll from '@/components/cc-slider-scroll/cc-slider-scroll.vue'
 // vtkImageSlice(图片切片)：为vtk提供2D图像显示支持，与vtkImageSlice道具相关联放置在渲染器中
 // import vtkImageSlice from '@kitware/vtk.js/Rendering/Core/ImageSlice'
 
@@ -39,6 +46,7 @@ export default {
     components: {
         MPRInteractor,
         ViewportOverlay,
+        ccSliderScroll,
     },
     props: {
         volumes: { type: Array, required: true },
@@ -165,6 +173,7 @@ export default {
         },
 
         screenCoordSliceIntersection() {
+            console.log(this.sliceIntersection, 'this.sliceIntersection', this.index)
             const point3d = this.sliceIntersection
             if (this.renderer) {
                 // vtkCoordinate：表示各种坐标系中的位置，并将位置转换到其它坐标系
@@ -362,6 +371,65 @@ export default {
                 this.volumes[0].getMapper().setBlendModeToComposite()
             }
             this.renderWindow.render()
+        },
+        handleSliderScroll(viewkey, direction) {
+            if (this.renderer) {
+                let sliceIntersection = []
+                if (viewkey === 'top') {
+                    if (direction === 'down') {
+                        sliceIntersection = [
+                            this.sliceIntersection[0],
+                            this.sliceIntersection[1],
+                            this.sliceIntersection[2] - 1,
+                        ]
+                    } else {
+                        sliceIntersection = [
+                            this.sliceIntersection[0],
+                            this.sliceIntersection[1],
+                            this.sliceIntersection[2] + 1,
+                        ]
+                    }
+                } else if (viewkey === 'left') {
+                    if (direction === 'down') {
+                        sliceIntersection = [
+                            this.sliceIntersection[0] + 1,
+                            this.sliceIntersection[1],
+                            this.sliceIntersection[2],
+                        ]
+                    } else {
+                        sliceIntersection = [
+                            this.sliceIntersection[0] - 1,
+                            this.sliceIntersection[1],
+                            this.sliceIntersection[2],
+                        ]
+                    }
+                } else if (viewkey === 'front') {
+                    if (direction === 'down') {
+                        sliceIntersection = [
+                            this.sliceIntersection[0],
+                            this.sliceIntersection[1] - 1,
+                            this.sliceIntersection[2],
+                        ]
+                    } else {
+                        sliceIntersection = [
+                            this.sliceIntersection[0],
+                            this.sliceIntersection[1] + 1,
+                            this.sliceIntersection[2],
+                        ]
+                    }
+                }
+                this.$emit('update:sliceIntersection', sliceIntersection)
+                // this.updateSlicePlane()
+            }
+        },
+        handleSliderClick(offsetY) {
+            const wPos = vtkCoordinate.newInstance()
+            wPos.setCoordinateSystemToDisplay()
+            wPos.setValue([211, 400 - offsetY])
+            const worldCoords = wPos.getComputedWorldValue(this.renderer)
+            const sliceIntersection = [worldCoords[0], worldCoords[1], worldCoords[2]]
+            this.$emit('update:sliceIntersection', sliceIntersection)
+            // this.updateSlicePlane()
         },
     },
     mounted() {
